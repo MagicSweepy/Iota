@@ -1,0 +1,13 @@
+[{
+  "modid": "iota",
+  "name": "Iota",
+  "description": "Functional Programming Library for Minecraft.",
+  "version": "${version}",
+  "mcversion": "${minecraft_version}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "Magic_Sweepy" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": []
+}]
