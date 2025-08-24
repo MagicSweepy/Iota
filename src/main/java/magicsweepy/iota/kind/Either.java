@@ -220,7 +220,7 @@ public abstract class Either<L, R> implements Kind<Either.@NonNull Mu<R>, L>
 
     }
 
-    @NullMarked // TODO FIXME Checked all chain why this class conflicts...
+    @NullMarked
     public static final class Instance<R2> implements Applicative<Either.Mu<R2>, Instance.Mu<R2>>,
                                                       Traversable<Either.Mu<R2>, Instance.Mu<R2>>,
                                                       CocartesianLike<Either.Mu<R2>, R2, Instance.Mu<R2>>

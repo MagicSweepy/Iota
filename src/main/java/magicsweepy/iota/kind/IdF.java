@@ -24,7 +24,7 @@ public record IdF<A>(@Getter A value) implements Kind<IdF.Mu, A>
         return new IdF<>(a);
     }
 
-    public enum Instance implements Functor<Mu, Applicative.Mu>, Applicative<Mu, Instance.Mu>
+    public enum Instance implements Functor<Mu, Instance.Mu>, Applicative<Mu, Instance.Mu>
     {
 
         INSTANCE;

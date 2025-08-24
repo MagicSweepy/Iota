@@ -22,7 +22,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @NullMarked
-public interface Applicative<F extends Ob, Mu extends Applicative.Mu> extends Functor<F, Applicative.Mu>
+public interface Applicative<F extends Ob, Mu extends Applicative.Mu> extends Functor<F, Mu>
 {
 
     interface Mu extends Functor.Mu {}
