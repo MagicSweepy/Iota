@@ -52,6 +52,216 @@ public interface Applicative<F extends Ob, Mu extends Applicative.Mu> extends Fu
 
     // region Higher Operations
 
+    default <A, B, R> BiFunction<Kind<F, A>,
+                                 Kind<F, B>,
+                                 Kind<F, R>> lift2(final Kind<F, BiFunction<A, B, R>> f)
+    {
+        return (fa, fb) -> ap2(f, fa, fb);
+    }
+
+    default <T1, T2, T3, R> Fun3<Kind<F, T1>,
+                                 Kind<F, T2>,
+                                 Kind<F, T3>,
+                                 Kind<F, R>> lift3(final Kind<F, Fun3<T1, T2, T3, R>> f)
+    {
+        return (ft1, ft2, ft3) -> ap3(f, ft1, ft2, ft3);
+    }
+
+    default <T1, T2, T3, T4, R> Fun4<Kind<F, T1>,
+                                     Kind<F, T2>,
+                                     Kind<F, T3>,
+                                     Kind<F, T4>,
+                                     Kind<F, R>> lift4(final Kind<F, Fun4<T1, T2, T3, T4, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4) -> ap4(f, ft1, ft2, ft3, ft4);
+    }
+
+    default <T1, T2, T3, T4, T5, R> Fun5<Kind<F, T1>,
+                                         Kind<F, T2>,
+                                         Kind<F, T3>,
+                                         Kind<F, T4>,
+                                         Kind<F, T5>,
+                                         Kind<F, R>> lift5(final Kind<F, Fun5<T1, T2, T3, T4, T5, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5) -> ap5(f, ft1, ft2, ft3, ft4, ft5);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, R> Fun6<Kind<F, T1>,
+                                             Kind<F, T2>,
+                                             Kind<F, T3>,
+                                             Kind<F, T4>,
+                                             Kind<F, T5>,
+                                             Kind<F, T6>,
+                                             Kind<F, R>> lift6(final Kind<F, Fun6<T1, T2, T3, T4, T5, T6, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6) -> ap6(f, ft1, ft2, ft3, ft4, ft5, ft6);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, R> Fun7<Kind<F, T1>,
+                                                 Kind<F, T2>,
+                                                 Kind<F, T3>,
+                                                 Kind<F, T4>,
+                                                 Kind<F, T5>,
+                                                 Kind<F, T6>,
+                                                 Kind<F, T7>,
+                                                 Kind<F, R>> lift7(final Kind<F, Fun7<T1, T2, T3, T4, T5, T6, T7, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7) -> ap7(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, R> Fun8<Kind<F, T1>,
+                                                     Kind<F, T2>,
+                                                     Kind<F, T3>,
+                                                     Kind<F, T4>,
+                                                     Kind<F, T5>,
+                                                     Kind<F, T6>,
+                                                     Kind<F, T7>,
+                                                     Kind<F, T8>,
+                                                     Kind<F, R>> lift8(final Kind<F, Fun8<T1, T2, T3, T4, T5, T6, T7, T8, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8) -> ap8(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, R> Fun9<Kind<F, T1>,
+                                                         Kind<F, T2>,
+                                                         Kind<F, T3>,
+                                                         Kind<F, T4>,
+                                                         Kind<F, T5>,
+                                                         Kind<F, T6>,
+                                                         Kind<F, T7>,
+                                                         Kind<F, T8>,
+                                                         Kind<F, T9>,
+                                                         Kind<F, R>> lift9(final Kind<F, Fun9<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9) -> ap9(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> Fun10<Kind<F, T1>,
+                                                               Kind<F, T2>,
+                                                               Kind<F, T3>,
+                                                               Kind<F, T4>,
+                                                               Kind<F, T5>,
+                                                               Kind<F, T6>,
+                                                               Kind<F, T7>,
+                                                               Kind<F, T8>,
+                                                               Kind<F, T9>,
+                                                               Kind<F, T10>,
+                                                               Kind<F, R>> lift10(final Kind<F, Fun10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10) -> ap10(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> Fun11<Kind<F, T1>,
+                                                                    Kind<F, T2>,
+                                                                    Kind<F, T3>,
+                                                                    Kind<F, T4>,
+                                                                    Kind<F, T5>,
+                                                                    Kind<F, T6>,
+                                                                    Kind<F, T7>,
+                                                                    Kind<F, T8>,
+                                                                    Kind<F, T9>,
+                                                                    Kind<F, T10>,
+                                                                    Kind<F, T11>,
+                                                                    Kind<F, R>> lift11(final Kind<F, Fun11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11) -> ap11(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> Fun12<Kind<F, T1>,
+                                                                         Kind<F, T2>,
+                                                                         Kind<F, T3>,
+                                                                         Kind<F, T4>,
+                                                                         Kind<F, T5>,
+                                                                         Kind<F, T6>,
+                                                                         Kind<F, T7>,
+                                                                         Kind<F, T8>,
+                                                                         Kind<F, T9>,
+                                                                         Kind<F, T10>,
+                                                                         Kind<F, T11>,
+                                                                         Kind<F, T12>,
+                                                                         Kind<F, R>> lift12(final Kind<F, Fun12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12) -> ap12(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R> Fun13<Kind<F, T1>,
+                                                                              Kind<F, T2>,
+                                                                              Kind<F, T3>,
+                                                                              Kind<F, T4>,
+                                                                              Kind<F, T5>,
+                                                                              Kind<F, T6>,
+                                                                              Kind<F, T7>,
+                                                                              Kind<F, T8>,
+                                                                              Kind<F, T9>,
+                                                                              Kind<F, T10>,
+                                                                              Kind<F, T11>,
+                                                                              Kind<F, T12>,
+                                                                              Kind<F, T13>,
+                                                                              Kind<F, R>> lift13(final Kind<F, Fun13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13) -> ap13(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R> Fun14<Kind<F, T1>,
+                                                                                   Kind<F, T2>,
+                                                                                   Kind<F, T3>,
+                                                                                   Kind<F, T4>,
+                                                                                   Kind<F, T5>,
+                                                                                   Kind<F, T6>,
+                                                                                   Kind<F, T7>,
+                                                                                   Kind<F, T8>,
+                                                                                   Kind<F, T9>,
+                                                                                   Kind<F, T10>,
+                                                                                   Kind<F, T11>,
+                                                                                   Kind<F, T12>,
+                                                                                   Kind<F, T13>,
+                                                                                   Kind<F, T14>,
+                                                                                   Kind<F, R>> lift14(final Kind<F, Fun14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14) -> ap14(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R> Fun15<Kind<F, T1>,
+                                                                                        Kind<F, T2>,
+                                                                                        Kind<F, T3>,
+                                                                                        Kind<F, T4>,
+                                                                                        Kind<F, T5>,
+                                                                                        Kind<F, T6>,
+                                                                                        Kind<F, T7>,
+                                                                                        Kind<F, T8>,
+                                                                                        Kind<F, T9>,
+                                                                                        Kind<F, T10>,
+                                                                                        Kind<F, T11>,
+                                                                                        Kind<F, T12>,
+                                                                                        Kind<F, T13>,
+                                                                                        Kind<F, T14>,
+                                                                                        Kind<F, T15>,
+                                                                                        Kind<F, R>> lift15(final Kind<F, Fun15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15) -> ap15(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15);
+    }
+
+    default <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R> Fun16<Kind<F, T1>,
+                                                                                             Kind<F, T2>,
+                                                                                             Kind<F, T3>,
+                                                                                             Kind<F, T4>,
+                                                                                             Kind<F, T5>,
+                                                                                             Kind<F, T6>,
+                                                                                             Kind<F, T7>,
+                                                                                             Kind<F, T8>,
+                                                                                             Kind<F, T9>,
+                                                                                             Kind<F, T10>,
+                                                                                             Kind<F, T11>,
+                                                                                             Kind<F, T12>,
+                                                                                             Kind<F, T13>,
+                                                                                             Kind<F, T14>,
+                                                                                             Kind<F, T15>,
+                                                                                             Kind<F, T16>,
+                                                                                             Kind<F, R>> lift16(final Kind<F, Fun16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R>> f)
+    {
+        return (ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, ft16) -> ap16(f, ft1, ft2, ft3, ft4, ft5, ft6, ft7, ft8, ft9, ft10, ft11, ft12, ft13, ft14, ft15, ft16);
+    }
+
     default <T1, T2, R> Kind<F, R> ap2(final Kind<F, BiFunction<T1, T2, R>> f,
                                        final Kind<F, T1> t1,
                                        final Kind<F, T2> t2)
