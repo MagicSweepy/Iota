@@ -1,29 +1,31 @@
 package magicsweepy.iota.kind;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
-/**
- * Functor operand {@code F} for two types.
- * <p>
- * A functor will applying a function to values which be contained in {@code F} without any changing.
- *
- * @param <F> The generic type of the type constructor.
- */
-public interface Functor<F>
+@NullMarked
+public interface Functor<F extends Ob, Mu extends Functor.Mu> extends Mor<F, Functor.Mu>
 {
 
+    interface Mu extends Mor.Mu {}
+
     /**
-     * B -> F(B)
-     * |     |
-     * Bb    |
-     * |     |
-     * Aa    |
-     * |     |
-     * A -> F(A)
+     * Doing map operation to contained values within {@link Functor} context.
+     *
+     * <pre>{@code
+     *     Ta ---> Aa
+     *      |      |
+     *      T      A
+     *      |      |
+     *     F<T> -> F<A>
+     * }</pre>
+     *
+     * @param <T> The generic type of the values about {@link Functor} inputs.
+     * @param <A> The generic type of the values about {@link Functor} outputs.
      */
-    <A, B> @NonNull Kind<F, B> map(@NonNull Function<? super A, ? extends B> f,
-                                   @NonNull Kind<F, A> fa);
+    <T, A> @NonNull Kind<F, A> map(final Function<? super T, ? extends A> f,
+                                   final Kind<F, T> fa);
 
 }
