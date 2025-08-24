@@ -30,6 +30,9 @@ minecraft {
 
 tasks {
     dependencies {
+        api(libs.jspecify)
+        annotationProcessor(libs.jspecify)
+
         compileOnlyApi(libs.annotations)
         annotationProcessor(libs.annotations)
 
