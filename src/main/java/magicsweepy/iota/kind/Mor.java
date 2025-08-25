@@ -1,21 +1,21 @@
 package magicsweepy.iota.kind;
 
-import magicsweepy.iota.kind.Products.Prod1;
-import magicsweepy.iota.kind.Products.Prod10;
-import magicsweepy.iota.kind.Products.Prod11;
-import magicsweepy.iota.kind.Products.Prod12;
-import magicsweepy.iota.kind.Products.Prod13;
-import magicsweepy.iota.kind.Products.Prod14;
-import magicsweepy.iota.kind.Products.Prod15;
-import magicsweepy.iota.kind.Products.Prod16;
-import magicsweepy.iota.kind.Products.Prod2;
-import magicsweepy.iota.kind.Products.Prod3;
-import magicsweepy.iota.kind.Products.Prod4;
-import magicsweepy.iota.kind.Products.Prod5;
-import magicsweepy.iota.kind.Products.Prod6;
-import magicsweepy.iota.kind.Products.Prod7;
-import magicsweepy.iota.kind.Products.Prod8;
-import magicsweepy.iota.kind.Products.Prod9;
+import magicsweepy.iota.kind.product.Prod1;
+import magicsweepy.iota.kind.product.Prod10;
+import magicsweepy.iota.kind.product.Prod11;
+import magicsweepy.iota.kind.product.Prod12;
+import magicsweepy.iota.kind.product.Prod13;
+import magicsweepy.iota.kind.product.Prod14;
+import magicsweepy.iota.kind.product.Prod15;
+import magicsweepy.iota.kind.product.Prod16;
+import magicsweepy.iota.kind.product.Prod2;
+import magicsweepy.iota.kind.product.Prod3;
+import magicsweepy.iota.kind.product.Prod4;
+import magicsweepy.iota.kind.product.Prod5;
+import magicsweepy.iota.kind.product.Prod6;
+import magicsweepy.iota.kind.product.Prod7;
+import magicsweepy.iota.kind.product.Prod8;
+import magicsweepy.iota.kind.product.Prod9;
 import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NullMarked;
 

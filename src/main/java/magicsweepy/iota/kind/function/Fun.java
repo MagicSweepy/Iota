@@ -1,4 +1,4 @@
-package magicsweepy.iota.function;
+package magicsweepy.iota.kind.function;
 
 @FunctionalInterface
 public interface Fun<T1, R>

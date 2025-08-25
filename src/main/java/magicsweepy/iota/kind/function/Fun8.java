@@ -1,4 +1,4 @@
-package magicsweepy.iota.function;
+package magicsweepy.iota.kind.function;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
