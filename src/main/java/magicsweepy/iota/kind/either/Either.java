@@ -20,7 +20,7 @@ import java.util.function.Function;
 public abstract class Either<L, R> implements Kind<Either.@NonNull Mu<R>, L>
 {
 
-    public static class Mu<R> implements Ob {}
+    public static final class Mu<R> implements Ob {}
 
     public static <L, R> Either<L, R> unbox(final Kind<Either.@NonNull Mu<R>, L> box)
     {
