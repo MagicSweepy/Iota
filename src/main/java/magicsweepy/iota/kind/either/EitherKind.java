@@ -4,6 +4,7 @@ import com.github.bsideup.jabel.Desugar;
 import lombok.Getter;
 import magicsweepy.iota.kind.Kind;
 import magicsweepy.iota.kind.KindUnwrapException;
+import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
@@ -18,9 +19,9 @@ public record EitherKind<L, R>(@Getter Either<L, R> either) implements Kind<Eith
 
     public static <L, R> Either<L, R> narrow(Kind<Either.Mu<L>, R> kind)
     {
-        if (kind instanceof EitherKind<L, R> eitherKind)
+        if (kind instanceof EitherKind<?, ?> eitherKind)
         {
-            return eitherKind.either();
+            return Unchecks.cast(eitherKind.either());
         }
         else
         {
