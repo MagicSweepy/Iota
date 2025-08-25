@@ -1,6 +1,6 @@
 package magicsweepy.iota.kind;
 
-import magicsweepy.iota.tuple.Pair;
+import magicsweepy.iota.kind.tuple.Pair;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;

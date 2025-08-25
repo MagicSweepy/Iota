@@ -1,4 +1,4 @@
-package magicsweepy.iota.tuple;
+package magicsweepy.iota.kind.tuple;
 
 import com.github.bsideup.jabel.Desugar;
 import lombok.Getter;
