@@ -7,6 +7,10 @@ import magicsweepy.iota.kind.KindUnwrapException;
 import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NullMarked;
 
+/**
+ * @deprecated TODO Replaced this operations in inner holder in EitherMonad.
+ */
+@Deprecated
 @NullMarked
 @Desugar
 public record EitherKind<L, R>(@Getter Either<L, R> either) implements Kind<Either.Mu<L>, R>
