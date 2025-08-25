@@ -1,5 +1,6 @@
 package magicsweepy.iota.kind;
 
+import magicsweepy.iota.kind.either.Either;
 import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NullMarked;
 

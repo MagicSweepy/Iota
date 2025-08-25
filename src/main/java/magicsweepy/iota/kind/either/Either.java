@@ -1,7 +1,13 @@
-package magicsweepy.iota.kind;
+package magicsweepy.iota.kind.either;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import magicsweepy.iota.kind.Applicative;
+import magicsweepy.iota.kind.CocartesianLike;
+import magicsweepy.iota.kind.Kind;
+import magicsweepy.iota.kind.Monoid;
+import magicsweepy.iota.kind.Ob;
+import magicsweepy.iota.kind.Traversable;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 
@@ -14,7 +20,7 @@ import java.util.function.Function;
 public abstract class Either<L, R> implements Kind<Either.@NonNull Mu<R>, L>
 {
 
-    public static final class Mu<R> implements Ob {}
+    public static class Mu<R> implements Ob {}
 
     public static <L, R> Either<L, R> unbox(final Kind<Either.@NonNull Mu<R>, L> box)
     {
@@ -221,9 +227,9 @@ public abstract class Either<L, R> implements Kind<Either.@NonNull Mu<R>, L>
     }
 
     @NullMarked
-    public static final class Instance<R2> implements Applicative<Either.Mu<R2>, Instance.Mu<R2>>,
-                                                      Traversable<Either.Mu<R2>, Instance.Mu<R2>>,
-                                                      CocartesianLike<Either.Mu<R2>, R2, Instance.Mu<R2>>
+    public static final class Instance<R2> implements Applicative<Mu<R2>, Instance.Mu<R2>>,
+            Traversable<Mu<R2>, Instance.Mu<R2>>,
+            CocartesianLike<Mu<R2>, R2, Instance.Mu<R2>>
     {
 
         public static final class Mu<R2> implements Applicative.Mu, Traversable.Mu, CocartesianLike.Mu {}
