@@ -1,4 +1,4 @@
-package magicsweepy.iota.util;
+package magicsweepy.iota.kind.list;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

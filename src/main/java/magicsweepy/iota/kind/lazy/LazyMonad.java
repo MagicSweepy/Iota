@@ -20,7 +20,7 @@ public class LazyMonad implements Monad<Lazy.Mu>
     @Override
     public <A> Kind<Lazy.Mu, A> of(@Nullable A a)
     {
-        return widen(Lazy.get(a));
+        return box(Lazy.get(a));
     }
 
     @Override
@@ -33,28 +33,28 @@ public class LazyMonad implements Monad<Lazy.Mu>
     public <A, B> Kind<Lazy.Mu, B> map(Function<? super A, ? extends B> f,
                                        Kind<Lazy.Mu, A> fa)
     {
-        Lazy<A> lazyA = narrow(fa);
+        Lazy<A> lazyA = unbox(fa);
         Lazy<B> lazyB = lazyA.map(f);
-        return widen(lazyB);
+        return box(lazyB);
     }
 
     @Override
     public <A, B> Kind<Lazy.Mu, B> flatMap(Function<? super A, ? extends Kind<Lazy.Mu, B>> f,
                                            Kind<Lazy.Mu, A> fa)
     {
-        Lazy<A> lazyA = narrow(fa);
-        Lazy<B> lazyB = lazyA.flatMap(a -> narrow(f.apply(a)));
-        return widen(lazyB);
+        Lazy<A> lazyA = unbox(fa);
+        Lazy<B> lazyB = lazyA.flatMap(a -> unbox(f.apply(a)));
+        return box(lazyB);
     }
 
     @Override
     public <A, B> Function<Kind<Lazy.Mu, A>, Kind<Lazy.Mu, B>> lift(Kind<Lazy.Mu, Function<A, B>> f)
     {
         return fa -> {
-            Lazy<Function<A, B>> fLazy = narrow(f);
-            Lazy<A> lazyA = narrow(fa);
+            Lazy<Function<A, B>> fLazy = unbox(f);
+            Lazy<A> lazyA = unbox(fa);
             Lazy<B> lazyB = lazyA.flatMap(a -> fLazy.map(g -> g.apply(a)));
-            return widen(lazyB);
+            return box(lazyB);
         };
     }
 
@@ -62,18 +62,18 @@ public class LazyMonad implements Monad<Lazy.Mu>
     public <A, B> Kind<Lazy.Mu, B> ap(Kind<Lazy.Mu, Function<A, B>> f,
                                       Kind<Lazy.Mu, A> fa)
     {
-        Lazy<? extends Function<A, B>> fLazy = narrow(f);
-        Lazy<A> lazyA = narrow(fa);
+        Lazy<? extends Function<A, B>> fLazy = unbox(f);
+        Lazy<A> lazyA = unbox(fa);
         Lazy<B> lazyB = Lazy.create(() -> fLazy.pop().apply(lazyA.pop()));
-        return widen(lazyB);
+        return box(lazyB);
     }
 
-    private <A> Kind<Lazy.Mu, A> widen(Lazy<A> lazy)
+    private <A> Kind<Lazy.Mu, A> box(Lazy<A> lazy)
     {
         return new Holder<>(lazy);
     }
 
-    private <A> Lazy<A> narrow(@Nullable Kind<Lazy.Mu, A> kind)
+    private <A> Lazy<A> unbox(@Nullable Kind<Lazy.Mu, A> kind)
     {
         if (kind instanceof Holder<?> holder)
             return Unchecks.cast(holder.lazyInstance);

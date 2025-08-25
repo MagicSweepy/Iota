@@ -1,6 +1,6 @@
 package magicsweepy.iota.kind;
 
-import magicsweepy.iota.util.ListOps;
+import magicsweepy.iota.kind.list.ListOps;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import org.jspecify.annotations.NullMarked;
 
