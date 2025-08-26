@@ -1,5 +1,6 @@
 package magicsweepy.iota.kind.optional;
 
+import com.github.bsideup.jabel.Desugar;
 import magicsweepy.iota.kind.Kind;
 import magicsweepy.iota.kind.KindUnwrapException;
 import magicsweepy.iota.kind.SemiMonad;
@@ -17,6 +18,7 @@ import java.util.function.Function;
 public class OptionalMonad implements SemiMonad<OptionalKind.Mu>, ThrowableMonad<OptionalKind.Mu, Unit>
 {
 
+    @Desugar
     /* package */ record Holder<T>(Optional<T> optional) implements OptionalKind<T> {}
 
     @Override
