@@ -278,7 +278,7 @@ public abstract class Either<L, R> implements Kind<Either.@NonNull Mu<R>, L>
         public <A, M> M foldMap(Monoid<M> monoid, Function<? super A, ? extends M> f,
                                 Kind<Either.Mu<R2>, A> fa)
         {
-            return Either.unbox(fa).map(f, t -> monoid.point());
+            return Either.unbox(fa).map(f, t -> monoid.empty());
         }
 
         @Override

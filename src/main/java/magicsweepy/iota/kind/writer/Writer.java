@@ -20,7 +20,7 @@ public record Writer<M, A>(@NonNull M message, @Nullable A value) implements Kin
     @NonNull
     public static <M, A> Writer<M, A> create(@NonNull Monoid<M> messageMonoid, @Nullable A value)
     {
-        return new Writer<>(messageMonoid.point(), value);
+        return new Writer<>(messageMonoid.empty(), value);
     }
 
     @NonNull

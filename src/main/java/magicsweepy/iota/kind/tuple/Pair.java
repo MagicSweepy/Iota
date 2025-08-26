@@ -84,7 +84,7 @@ public record Pair<F, S>(@Getter F first, @Getter S second) implements Kind<Pair
                                 Kind<Pair.Mu<S2>, A> fa)
         {
             final Pair<A, S2> pair = Pair.unbox(fa);
-            return monoid.combine(monoid.point(), f.apply(pair.first));
+            return monoid.combine(monoid.empty(), f.apply(pair.first));
         }
 
         @Override

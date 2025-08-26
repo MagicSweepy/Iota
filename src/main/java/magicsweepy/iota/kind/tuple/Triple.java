@@ -89,7 +89,7 @@ public record Triple<F, S, T>(@Getter F first, @Getter S second, @Getter T third
                                 Kind<Triple.Mu<S2, T2>, A> fa)
         {
             final Triple<A, S2, T2> triple = Triple.unbox(fa);
-            return monoid.combine(monoid.point(), f.apply(triple.first));
+            return monoid.combine(monoid.empty(), f.apply(triple.first));
         }
 
         @Override

@@ -11,7 +11,7 @@ import java.util.List;
 public interface Monoid<T> extends SemiGroup<T>
 {
 
-    T point();
+    T empty();
 
     static <T> Monoid<List<T>> listMonoid()
     {
@@ -19,7 +19,7 @@ public interface Monoid<T> extends SemiGroup<T>
         {
 
             @Override
-            public List<T> point()
+            public List<T> empty()
             {
                 return ListOps.of();
             }
