@@ -6,7 +6,7 @@ import org.jspecify.annotations.NullMarked;
 import java.util.function.Function;
 
 @NullMarked
-public interface Functor<F extends Ob, Mu extends Functor.Mu> extends Mor<F, Functor.Mu>
+public interface Functor<F extends Ob, Mu extends Functor.Mu> extends Mor<F, Mu>
 {
 
     interface Mu extends Mor.Mu {}

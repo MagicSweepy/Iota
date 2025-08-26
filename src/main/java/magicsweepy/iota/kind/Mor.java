@@ -20,7 +20,7 @@ import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NullMarked;
 
 @NullMarked
-public interface Mor<F extends Ob, Mu extends Mor.Mu> extends Kind<Mor.Mu, F>
+public interface Mor<F extends Ob, Mu extends Mor.Mu> extends Kind<Mu, F>
 {
 
     interface Mu extends Ob {}

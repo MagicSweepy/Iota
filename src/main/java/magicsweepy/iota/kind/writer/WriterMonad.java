@@ -1,5 +1,6 @@
 package magicsweepy.iota.kind.writer;
 
+import com.github.bsideup.jabel.Desugar;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import magicsweepy.iota.kind.Kind;
@@ -21,6 +22,7 @@ public final class WriterMonad<M> implements Monad<Writer.Mu<M>>
 
     private final Monoid<M> monoid;
 
+    @Desugar
     /* package */ record Holder<M, A>(Writer<M, A> writer) implements Kind<Writer.Mu<M>, A> {}
 
     @Override

@@ -88,7 +88,7 @@ public class OptionalMonad implements SemiMonad<OptionalKind.Mu>, ThrowableMonad
                                                     Function<? super Unit, ? extends A> handler)
     {
         Optional<A> optional = unbox(ma);
-        if (optional.isEmpty())
+        if (!optional.isPresent())
             return Unchecks.cast(handler.apply(Unit.INSTANCE));
         else
             return ma;

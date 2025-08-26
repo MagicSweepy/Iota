@@ -11,6 +11,11 @@ public interface CartesianLike<T extends Ob, C, Mu extends CartesianLike.Mu> ext
 
     interface Mu extends Functor.Mu, Traversable.Mu {}
 
+    static <F extends Ob, C, Mu extends CartesianLike.Mu> CartesianLike<F, C, Mu> unbox(final Kind<Mu, F> box)
+    {
+        return (CartesianLike<F, C, Mu>) box;
+    }
+
     <A> Kind<Pair.Mu<C>, A> to(final Kind<T, A> input);
 
     <A> Kind<T, A> from(final Kind<Pair.Mu<C>, A> input);
@@ -22,4 +27,5 @@ public interface CartesianLike<T extends Ob, C, Mu extends CartesianLike.Mu> ext
     {
         return ap.map(this::from, new Pair.Instance<C>().traverse(ap, f, to(input)));
     }
+
 }
