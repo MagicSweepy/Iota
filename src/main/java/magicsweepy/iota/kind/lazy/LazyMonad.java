@@ -15,7 +15,7 @@ public class LazyMonad implements Monad<Lazy.Mu>
 {
 
     @Desugar
-    /* package */ record Holder<A>(Lazy<A> lazyInstance) implements Kind<Lazy.Mu, A> {}
+    /* package */ record Holder<A>(Lazy<A> lazy) implements Kind<Lazy.Mu, A> {}
 
     @Override
     public <A> Kind<Lazy.Mu, A> of(@Nullable A a)
@@ -76,7 +76,7 @@ public class LazyMonad implements Monad<Lazy.Mu>
     private <A> Lazy<A> unbox(@Nullable Kind<Lazy.Mu, A> kind)
     {
         if (kind instanceof Holder<?> holder)
-            return Unchecks.cast(holder.lazyInstance);
+            return Unchecks.cast(holder.lazy);
         else
             throw new KindUnwrapException("Kind instance is not a correct Holder");
     }

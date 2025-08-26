@@ -48,25 +48,25 @@ public class ListMonad implements SemiMonad<ListKind.Mu>
     public <A, B> Kind<ListKind.Mu, B> flatMap(Function<? super A, ? extends Kind<ListKind.Mu, B>> f,
                                                Kind<ListKind.Mu, A> fa)
     {
-        List<A> leftList = ListKind.unbox(fa).unbox();
-        List<B> rightList = new ArrayList<>();
+        List<A> listA = ListKind.unbox(fa).unbox();
+        List<B> listB = new ArrayList<>();
 
-        leftList.forEach(a -> rightList.addAll(ListKind.unbox(f.apply(a)).unbox()));
-        return ListKind.of(rightList);
+        listA.forEach(a -> listB.addAll(ListKind.unbox(f.apply(a)).unbox()));
+        return ListKind.of(listB);
     }
 
     @Override
     public <A, B> Function<Kind<ListKind.Mu, A>, Kind<ListKind.Mu, B>> lift(Kind<ListKind.Mu, Function<A, B>> f)
     {
         return fa -> {
-            List<Function<A, B>> gs = ListKind.unbox(f).unbox();
-            List<A> leftList = ListKind.unbox(fa).unbox();
-            List<B> rightList = new ArrayList<>();
+            List<Function<A, B>> fList = ListKind.unbox(f).unbox();
+            List<A> listA = ListKind.unbox(fa).unbox();
+            List<B> listB = new ArrayList<>();
 
-            gs.forEach(g -> {
-                for (A a : leftList) rightList.add(g.apply(a));
+            fList.forEach(g -> {
+                for (A a : listA) listB.add(g.apply(a));
             });
-            return ListKind.of(rightList);
+            return ListKind.of(listB);
         };
     }
 
@@ -74,17 +74,17 @@ public class ListMonad implements SemiMonad<ListKind.Mu>
     public <A, B> Kind<ListKind.Mu, B> ap(Kind<ListKind.Mu, Function<A, B>> f,
                                                    Kind<ListKind.Mu, A> fa)
     {
-        List<? extends Function<A, B>> gs = ListKind.unbox(f).unbox();
-        List<A> leftList = ListKind.unbox(fa).unbox();
-        List<B> rightList = new ArrayList<>();
+        List<? extends Function<A, B>> fList = ListKind.unbox(f).unbox();
+        List<A> listA = ListKind.unbox(fa).unbox();
+        List<B> listB = new ArrayList<>();
 
-        if (gs.isEmpty() || leftList.isEmpty())
+        if (fList.isEmpty() || listA.isEmpty())
             return ListKind.of(ListOps.of());
 
-        gs.forEach(h -> {
-            for (A a : leftList) rightList.add(h.apply(a));
+        fList.forEach(h -> {
+            for (A a : listA) listB.add(h.apply(a));
         });
-        return ListKind.of(rightList);
+        return ListKind.of(listB);
     }
 
 }
