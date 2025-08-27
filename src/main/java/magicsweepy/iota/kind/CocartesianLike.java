@@ -6,6 +6,15 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
+/**
+ * A type that behaves like a coproduct with respect to some type constructor.
+ *
+ * @see Either
+ *
+ * @param <T>  The type constructor that is cocartesian-like.
+ * @param <C>  The constant type in the coproduct.
+ * @param <Mu> The witness type for this cocartesian-like structure.
+ */
 @NullMarked
 public interface CocartesianLike<T extends Ob, C, Mu extends CocartesianLike.Mu> extends Functor<T, Mu>, Traversable<T, Mu>
 {

@@ -10,6 +10,23 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
+/**
+ * A {@link Prism} is an optic used to focus on a part of a data structure that may or may not be present.
+ * <p>
+ * It is often used with sum types (e.g., union types, sealed classes) to access one of the possible variants.
+ * <p>
+ * A {@link Prism} can be thought of as a combination of a partial getter and a constructor:
+ * <ul>
+ *     <li>The {@link #match(S)} method attempts to extract a value of type {@code A} from a value of type {@code S}.
+ *     If the value is not present, it returns a value of type {@code T} instead.</li>
+ *     <li>The {@link #build(B)} method constructs a value of type {@code T} from a value of type {@code B}.</li>
+ * </ul>
+ *
+ * @param <S> The source type from which we want to extract a value.
+ * @param <T> The target type to which we can construct a value.
+ * @param <A> The type of the value that can be extracted (the focus).
+ * @param <B> The type of the value used to construct the target.
+ */
 @NullMarked
 public interface Prism<S, T, A, B> extends Kind2<Prism.Mu<A, B>, S, T>, Optic<Cocartesian.Mu, S, T, A, B>
 {

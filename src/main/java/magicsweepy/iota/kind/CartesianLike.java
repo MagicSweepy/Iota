@@ -5,6 +5,15 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
+/**
+ * A type that behaves like a cartesian product with respect to some type constructor.
+ *
+ * @see Pair
+ *
+ * @param <T>  The type constructor that is cartesian-like.
+ * @param <C>  The constant type in the product.
+ * @param <Mu> The witness type for this cartesian-like structure.
+ */
 @NullMarked
 public interface CartesianLike<T extends Ob, C, Mu extends CartesianLike.Mu> extends Functor<T, Mu>, Traversable<T, Mu>
 {

@@ -11,6 +11,31 @@ import org.jspecify.annotations.NullMarked;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * A {@code Profunctor} is a type class that generalizes the concept of a {@code Functor}s to {@code BiFunctor}s.
+ * <p>
+ * It allows you to map over both the input and output types of a bifunctor. Formally, a Profunctor is defined by the
+ * following operations:
+ * <ul>
+ *     <li><strong>dimap</strong>: This operation takes two functions, one for the input type and one for the output
+ *         type, and transforms a value of the profunctor type accordingly.</li>
+ * </ul>
+ * <p>
+ * The laws that a Profunctor must satisfy are:
+ * <ul>
+ *     <li><strong>Identity Law</strong>: dimap with identity functions should be equivalent to the original profunctor
+ *     value. Mathematically: <tt>dimap(id, id) = id</tt></li>
+ *     <li><strong>Composition Law</strong>: dimap should preserve function composition. That is, if you first map with
+ *     two functions and then with another two functions, it should be the same as mapping once with the composition
+ *     of those functions. Mathematically: <tt>dimap(f2, g2) . dimap(f1, g1) = dimap(f1 . f2, g1 . g2)</tt></li>
+ * </ul>
+ * <p>
+ * {@code Profunctor}s are used in various areas of functional programming, including optics (like {@code Lens}s and
+ * {@code Prism}s), where they help in abstracting over data transformations in a composable way.
+ *
+ * @param <P>  The bifunctor type that this {@code Profunctor} instance operates on.
+ * @param <Mu> A marker type to distinguish different {@code Profunctor} instances.
+ */
 @SuppressWarnings("UnstableApiUsage")
 @NullMarked
 public interface Profunctor<P extends Ob2, Mu extends Profunctor.Mu> extends Mor2<P, Mu>

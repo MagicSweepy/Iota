@@ -10,7 +10,12 @@ import magicsweepy.iota.kind.either.Either;
 import org.jspecify.annotations.NullMarked;
 
 /**
+ * A profunctor that supports the operations of a cocartesian category.
+ *
  * @see CocartesianLike
+ *
+ * @param <P>  The profunctor type constructor.
+ * @param <Mu> The witness type for this profunctor.
  */
 @SuppressWarnings("UnstableApiUsage")
 @NullMarked

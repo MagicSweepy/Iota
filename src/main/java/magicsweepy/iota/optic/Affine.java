@@ -13,6 +13,29 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
+/**
+ * An {@code Affine} is an optic that represents a focus on at most one part of a data structure.
+ * <p>
+ * It is similar to a {@link Lens}, but while a lens always focuses on exactly one part, an affine optic may not find
+ * the part it is looking for. This makes it suitable for working with optional fields or elements in a data structure.
+ * <p>
+ * An {@code Affine} can be thought of as a pair of functions:
+ * <ul>
+ *     <li>{@link #preview(S)}: Attempts to extract the focused part of type {@code A} from the source type {@code S},
+ *          returning an {@link Either} that contains either the extracted value or the original structure if the part
+ *          is not found.</li>
+ *     <li>{@link #set(B, S)}: Updates the focused part with a new value of type {@code B}, producing a new structure
+ *          of type {@code T}. If the part was not found, the original structure is returned unchanged.</li>
+ * </ul>
+ * <p>
+ * This optic is useful when you want to work with data structures that may or may not contain certain parts in a
+ * composable manner, allowing you to build more complex optics by combining simpler ones.
+ *
+ * @param <S> The source type.
+ * @param <T> The modified source type.
+ * @param <A> The target type.
+ * @param <B> The modified target type.
+ */
 @NullMarked
 public interface Affine<S, T, A, B> extends Kind2<Affine.Mu<A, B>, S, T>, Optic<AffineP.Mu, S, T, A, B>
 {

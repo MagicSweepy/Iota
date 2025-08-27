@@ -11,6 +11,27 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Function;
 
+/**
+ * A {@code Lens} is an optic that represents a focus on a single part of a product type.
+ * <p>
+ * The lens like a field in a record or an element in a tuple, it allows you to view and update that part while keeping
+ * the rest of the structure intact.
+ * <p>
+ * A {@code Lens} can be thought of as a pair of functions:
+ * <ul>
+ *     <li>{@link #view(S)}: Extracts the focused part of type {@code A} from the source type {@code S}.</li>
+ *     <li>{@link #update(B, S)}: Updates the focused part with a new value of type {@code B}, producing a new structure
+ *          of type {@code T}.</li>
+ * </ul>
+ * <p>
+ * This optic is useful when you want to work with nested data structures in a composable manner, allowing you to build
+ * more complex optics by combining simpler ones.
+ *
+ * @param <S> The source type.
+ * @param <T> The modified source type.
+ * @param <A> The target type.
+ * @param <B> The modified target type.
+ */
 @NullMarked
 public interface Lens<S, T, A, B> extends Kind2<Lens.Mu<A, B>, S, T>, Optic<Cartesian.Mu, S, T, A, B>
 {

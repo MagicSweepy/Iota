@@ -2,11 +2,17 @@ package magicsweepy.iota.optic;
 
 import lombok.experimental.UtilityClass;
 import magicsweepy.iota.kind.either.Either;
+import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+/**
+ * A utility class for creating various optics such as {@link Lens} and {@link Prism}.
+ * <p>
+ * Provided short-circuit optics creating by default.
+ */
 @UtilityClass
 public class Optics
 {
@@ -78,6 +84,43 @@ public class Optics
             }
 
         };
+    }
+
+    public static <S, T, A, B> Adapter<S, T, A, B> adapter(final Function<S, A> from, final Function<B, T> to)
+    {
+        return new Adapter<>()
+        {
+
+            @NonNull
+            @Override
+            public A from(@NonNull final S s)
+            {
+                return from.apply(s);
+            }
+
+            @NonNull
+            @Override
+            public T to(@NonNull final B b)
+            {
+                return to.apply(b);
+            }
+
+        };
+    }
+
+    public static <S, T> Adapter<S, T, S, T> id()
+    {
+        return Unchecks.cast(IdAdapter.INSTANCE);
+    }
+
+    public static boolean isId(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == IdAdapter.INSTANCE;
+    }
+
+    public static <S, T, A, B> Getter<S, T, A, B> getter(final Function<S, A> get)
+    {
+        return get::apply;
     }
 
 }

@@ -9,6 +9,31 @@ import org.jspecify.annotations.NullMarked;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * The composition of two profunctors.
+ * <p>
+ * Given two profunctors {@code F} and {@code G}, their composition {@code F ⊛ G} is defined as:
+ * <pre>{@code
+ *     (F ⊛ G)(A, B) = ∃C. F(A, C) × G(C, B)
+ * }</pre>
+ * where {@code ∃C} denotes the existence of an intermediate type {@code C}, and {@code ×} denotes a product type (pair).
+ * <p>
+ * This means that an element of {@code F ⊛ G} from {@code A} to {@code B} consists of:
+ * <ul>
+ *     <li>A value of type {@code F(A, C)} for some intermediate type {@code C}, and</li>
+ *     <li>A value of type {@code G(C, B)} for the same intermediate type {@code C}.</li>
+ * </ul>
+ * <p>
+ * The profunctor instance for the composition is defined by mapping over both components using the respective profunctor instances.
+ *
+ * @see Profunctor
+ *
+ * @param <F> The first profunctor.
+ * @param <G> The second profunctor.
+ * @param <A> The input type.
+ * @param <B> The output type.
+ * @param <C> The intermediate type.
+ */
 @NullMarked
 @Desugar
 public record Procompose<F extends Ob2,

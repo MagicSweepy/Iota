@@ -10,7 +10,12 @@ import magicsweepy.iota.kind.tuple.Pair;
 import org.jspecify.annotations.NullMarked;
 
 /**
+ * A profunctor that supports the operations of a cartesian category.
+ *
  * @see CartesianLike
+ *
+ * @param <P>  The profunctor type constructor.
+ * @param <Mu> The witness type for this profunctor.
  */
 @SuppressWarnings("UnstableApiUsage")
 @NullMarked
