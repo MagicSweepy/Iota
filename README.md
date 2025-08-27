@@ -11,10 +11,10 @@ This repo is only for learning Functional Programming, so we cannot ensure its w
 - [x] `Monad` and `Monoid` supported.
 - [x] Functional Properties and related features supported.
 - [x] Java 9 `AtomicReference` plain operands port.
-- [x] Products supported.
-- [x] Optics supported.
-- [x] Pro-functors supported.
+- [x] Optics and Profunctors supported.
 - [x] Java 24 `Gatherer` API port.
+- [ ] Primitive Type `Traversal`, various entry `Monad` and some features supported.
+- [ ] More Functional Entries supported.
 
 ## :coffee: Credits
 
