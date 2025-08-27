@@ -1,7 +1,6 @@
 package magicsweepy.iota.kind.maybe;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import magicsweepy.iota.kind.Applicative;
 import magicsweepy.iota.kind.Kind;
 import magicsweepy.iota.kind.Monoid;
@@ -51,7 +50,6 @@ public abstract class Maybe<T> implements Kind<Maybe.Mu, T>
         return Unchecks.cast(Nothing.INSTANCE);
     }
 
-    @Getter
     @AllArgsConstructor
     public static final class Just<T> extends Maybe<T>
     {
@@ -86,6 +84,12 @@ public abstract class Maybe<T> implements Kind<Maybe.Mu, T>
         public <U> Maybe<U> flatMap(Function<T, Maybe<U>> mapper)
         {
             return mapper.apply(value);
+        }
+
+        @Override
+        public Optional<T> getValue()
+        {
+            return Optional.of(value);
         }
 
         @Override
@@ -182,13 +186,10 @@ public abstract class Maybe<T> implements Kind<Maybe.Mu, T>
                                                                         Kind<Maybe.Mu, A> input)
         {
             Maybe<A> maybe = Maybe.unbox(input);
-            if (maybe instanceof Just)
-            {
-                A value = ((Just<A>) maybe).getValue();
-                Kind<F, B> fb = f.apply(value);
-                return ap.map(Maybe::just, fb);
-            }
-            return ap.point(Maybe.nothing());
+            if (maybe instanceof Just<A> just)
+                return ap.map(Just::new, f.apply(just.value));
+            else
+                return ap.point(nothing());
         }
 
         @Override

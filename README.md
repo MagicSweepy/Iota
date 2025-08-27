@@ -9,11 +9,12 @@ This repo is only for learning Functional Programming, so we cannot ensure its w
 - [x] Curryable Function Interfaces from <tt>1</tt> to <tt>16</tt> from *Scala Language*.
 - [x] Basic Type/Object Structures, consists of: `Ob`, `Mor`, `Kind` and `Functor`.
 - [x] `Monad` and `Monoid` supported.
-- [ ] Functional Properties and related features supported.
+- [x] Functional Properties and related features supported.
 - [x] Java 9 `AtomicReference` plain operands port.
 - [x] Products supported.
-- [ ] Optics supported.
-- [ ] Pro-functors supported.
+- [x] Optics supported.
+- [x] Pro-functors supported.
+- [x] Java 24 `Gatherer` API port.
 
 ## :coffee: Credits
 

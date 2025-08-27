@@ -21,7 +21,7 @@ public class Checks
      * @return        This method has same function with {@link Objects#requireNonNull}, returns {@code Object} itself
      *                and check its nullity, if the {@code Object} is {@code null}, then thrown {@code message}.
      */
-    public <T> T notnullT(@Nullable T object, Object... message)
+    public <T> T notnull(@Nullable T object, Object... message)
     {
         return Objects.requireNonNull(object, String.format("We have a problem: %s. "
                 + "Please report that on our bugtracker unless you are using some old version. "
@@ -31,13 +31,13 @@ public class Checks
     /**
      * Checks several nullable {@code Objects} is or not {@code null}.
      * <p>
-     * Always default {@code message} thrown via {@link #notnull(String, Object...)}.
+     * Always default {@code message} thrown via {@link #notnulls(String, Object...)}.
      *
      * @param objects The checked {@code Object}s.
      */
-    public void notnull(@Nullable Object... objects)
+    public void notnulls(@Nullable Object... objects)
     {
-        notnull(null, objects);
+        notnulls(null, objects);
     }
 
     /**
@@ -48,7 +48,7 @@ public class Checks
      * @param message The message which will be thrown.
      * @param objects The checked {@code Object}s.
      */
-    public void notnull(String message, @Nullable Object... objects)
+    public void notnulls(String message, @Nullable Object... objects)
     {
         if (objects == null)
         {

@@ -1,4 +1,3 @@
-import io.gitlab.gregtechlite.magicbookgradle.utils.deobf
 import io.gitlab.gregtechlite.magicbookgradle.utils.modGroup
 
 plugins {
@@ -39,7 +38,6 @@ tasks {
         compileOnly(libs.lombok)
         annotationProcessor(libs.lombok)
 
-        shadowImplementation(libs.streamEx)
         shadowImplementation(libs.joml)
     }
 }

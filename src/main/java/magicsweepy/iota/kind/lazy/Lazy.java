@@ -26,7 +26,7 @@ public final class Lazy<A> implements Kind<Lazy.@NonNull Mu, A>
 
     private Lazy(@NonNull ThrowableSupplier<? extends A> evaluator)
     {
-        this.evaluator = Checks.notnullT(evaluator);
+        this.evaluator = Checks.notnull(evaluator);
     }
 
     @NonNull
@@ -81,17 +81,17 @@ public final class Lazy<A> implements Kind<Lazy.@NonNull Mu, A>
     @NonNull
     public <B> Lazy<B> map(@NonNull Function<? super A, ? extends B> f)
     {
-        Checks.notnullT(f);
+        Checks.notnull(f);
         return Lazy.create(() -> f.apply(this.pop()));
     }
 
     @NonNull
     public <B> Lazy<B> flatMap(@NonNull Function<? super A, ? extends Lazy<? extends B>> f)
     {
-        Checks.notnullT(f);
+        Checks.notnull(f);
         return Lazy.create(() -> {
             Lazy<? extends B> pullLazy = f.apply(this.pop());
-            Checks.notnullT(pullLazy);
+            Checks.notnull(pullLazy);
             return pullLazy.pop();
         });
     }
