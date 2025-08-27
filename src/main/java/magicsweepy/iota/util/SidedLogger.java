@@ -9,8 +9,8 @@ import org.jspecify.annotations.NullMarked;
 public class SidedLogger implements Logger
 {
 
-    protected final String CLIENT_SUFFIX = " [Client]";
-    protected final String SERVER_SUFFIX = " [Server]";
+    protected final String CLIENT_SUFFIX = ":C";
+    protected final String SERVER_SUFFIX = ":S";
 
     private final Logger clientLogger;
     private final Logger serverLogger;

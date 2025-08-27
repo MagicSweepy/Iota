@@ -1,6 +1,7 @@
 package magicsweepy.iota.optic;
 
 import lombok.experimental.UtilityClass;
+import magicsweepy.iota.kind.Functoid;
 import magicsweepy.iota.kind.either.Either;
 import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NonNull;
@@ -16,6 +17,8 @@ import java.util.function.Function;
 @UtilityClass
 public class Optics
 {
+
+    // region Optic Constructors
 
     public <S, T, A, B> Lens<S, T, A, B> lens(final Function<S, A> view,
                                               final BiFunction<B, S, T> update)
@@ -113,19 +116,28 @@ public class Optics
         return Unchecks.cast(IdAdapter.INSTANCE);
     }
 
-    public static boolean isId(final Optic<?, ?, ?, ?, ?> optic)
-    {
-        return optic == IdAdapter.INSTANCE;
-    }
-
     public static <S, T, A, B> Getter<S, T, A, B> getter(final Function<S, A> get)
     {
         return get::apply;
     }
 
+    public static <S, T, A, B> Grate<S, T, A, B> grate(final Functoid<Functoid<Functoid<S, A>, B>, T> grate)
+    {
+        return grate::apply;
+    }
+
     public static <F, G, F2> ProjL<F, G, F2> leftProj()
     {
         return Unchecks.cast(ProjL.INSTANCE);
+    }
+
+    // endregion
+
+    // region Optics Predicate
+
+    public static boolean isId(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == IdAdapter.INSTANCE;
     }
 
     public static boolean isLeftProj(final Optic<?, ?, ?, ?, ?> optic)
@@ -162,5 +174,7 @@ public class Optics
     {
         return optic == InjR.INSTANCE;
     }
+
+    // endregion
 
 }

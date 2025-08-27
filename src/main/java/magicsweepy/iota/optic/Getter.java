@@ -15,10 +15,6 @@ import java.util.function.Supplier;
  * <p>
  * It provides a way to extract a value of type {@code A} from a structure of type {@code S} using {@link #get} method.
  * <p>
- * The {@link Getter} interface extends {@link Optic}, allowing it to be used in a variety of contexts where optics are
- * applicable. It is parameterized by four types: {@code S} (the source type), {@code T} (the modified source type),
- * {@code A} (the target type), and {@code B} (the modified target type).
- * <p>
  * The {@link Getter} interface also includes an inner static class {@link Instance}, which provides an implementation
  * of the {@link GetterP} profunctor for the {@link Getter} optic. This allows for the transformation of getters
  * through the use of functions, enabling composition and manipulation of getters in a functional programming style.

@@ -21,15 +21,6 @@ import java.util.stream.Collectors;
  * An {@code Optic} is a generalization of various types of optics (like lenses, prisms, etc.) that can be used to focus
  * on and manipulate parts of data structures in a composable way.
  * <p>
- * The {@code Optic} is parameterized by:
- * <ul>
- *     <li>{@code Proof}: A type-level representation of the kind of optic (e.g., lens, prism) being used.</li>
- *     <li>{@code S}: The source type from which we are focusing.</li>
- *     <li>{@code T}: The modified source type after applying an update.</li>
- *     <li>{@code A}: The target type that we are focusing on.</li>
- *     <li>{@code B}: The modified target type after applying an update.</li>
- * </ul>
- * <p>
  * The primary method in this interface is {@link #eval(Kind)}, which takes a proof of the optic's kind and returns a
  * function that can transform a value of type {@code Kind2<P, A, B>} into a value of type {@code Kind2<P, S, T>}, where
  * {@code P} is some profunctor.
@@ -37,11 +28,11 @@ import java.util.stream.Collectors;
  * This design allows for the composition of different optics, enabling complex data manipulations to be built up from
  * simpler components.
  *
- * @param <Proof> A type-level representation of the kind of optic.
- * @param <S>     The source type.
- * @param <T>     The modified source type.
- * @param <A>     The target type.
- * @param <B>     The modified target type.
+ * @param <Proof> A type-level representation of the kind of optic (e.g. {@link Lens}, {@link Prism}) being used.
+ * @param <S>     The source type from which we are focusing.
+ * @param <T>     The modified source type after applying an update.
+ * @param <A>     The target type that we are focusing on.
+ * @param <B>     The modified target type after applying an update.
  */
 @SuppressWarnings("UnstableApiUsage")
 @NullMarked

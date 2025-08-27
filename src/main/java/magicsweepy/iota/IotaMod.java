@@ -14,7 +14,7 @@ import org.jspecify.annotations.NullMarked;
 public final class IotaMod
 {
 
-    public static final Logger logger = new SidedLogger(IotaTags.MOD_NAME);
+    public static final Logger logger = new SidedLogger(IotaTags.MOD_ID);
 
     public static ResourceLocation id(String path)
     {
