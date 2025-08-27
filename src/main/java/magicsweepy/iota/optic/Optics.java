@@ -123,4 +123,44 @@ public class Optics
         return get::apply;
     }
 
+    public static <F, G, F2> ProjL<F, G, F2> leftProj()
+    {
+        return Unchecks.cast(ProjL.INSTANCE);
+    }
+
+    public static boolean isLeftProj(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == ProjL.INSTANCE;
+    }
+
+    public static <F, G, G2> ProjR<F, G, G2> rightProj()
+    {
+        return Unchecks.cast(ProjR.INSTANCE);
+    }
+
+    public static boolean isRightProj(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == ProjR.INSTANCE;
+    }
+
+    public static <F, G, F2> InjL<F, G, F2> leftInj()
+    {
+        return Unchecks.cast(InjL.INSTANCE);
+    }
+
+    public static boolean isLeftInj(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == InjL.INSTANCE;
+    }
+
+    public static <F, G, G2> InjR<F, G, G2> rightInj()
+    {
+        return Unchecks.cast(InjR.INSTANCE);
+    }
+
+    public static boolean isInj2(final Optic<?, ?, ?, ?, ?> optic)
+    {
+        return optic == InjR.INSTANCE;
+    }
+
 }

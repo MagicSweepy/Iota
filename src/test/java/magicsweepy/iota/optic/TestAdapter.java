@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class TestAdapter
 {
 
-    static final Adapter<String, String, Integer, Integer> intAdapter = new Adapter<>()
+    private static final Adapter<String, String, Integer, Integer> intAdapter = new Adapter<>()
     {
 
         @NonNull

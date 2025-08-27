@@ -12,9 +12,9 @@ public final class TestLens
 {
 
     @Desugar
-    record Person(String name, int age) {}
+    private record Person(String name, int age) {}
 
-    static final Lens<Person, Person, String, String> nameLens = new Lens<>()
+    private static final Lens<Person, Person, String, String> nameLens = new Lens<>()
     {
 
         @NonNull

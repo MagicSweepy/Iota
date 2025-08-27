@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class TestPrism
 {
 
-    static final Prism<String, String, Integer, Integer> intPrism = new Prism<>()
+    private static final Prism<String, String, Integer, Integer> intPrism = new Prism<>()
     {
 
         @NonNull

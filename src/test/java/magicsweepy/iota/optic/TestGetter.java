@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class TestGetter
 {
 
-    static final Getter<String, String, Integer, Integer> strGetter = Optics.getter(String::length);
-    static final Getter<Integer, Integer, String, String> intGetter = Optics.getter(Object::toString);
-    static final Getter<Long, Long, Long, Long> longGetter = Optics.getter(l -> l + 1);
+    private static final Getter<String, String, Integer, Integer> strGetter = Optics.getter(String::length);
+    private static final Getter<Integer, Integer, String, String> intGetter = Optics.getter(Object::toString);
+    private static final Getter<Long, Long, Long, Long> longGetter = Optics.getter(l -> l + 1);
 
     @Test
     public void getStringLength()

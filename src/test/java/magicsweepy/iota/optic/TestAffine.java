@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class TestAffine
 {
 
-    static final Affine<String, String, Integer, Integer> intAffine = new Affine<>()
+    private static final Affine<String, String, Integer, Integer> intAffine = new Affine<>()
     {
 
         @NonNull
