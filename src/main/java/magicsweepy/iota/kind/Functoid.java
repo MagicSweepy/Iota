@@ -2,6 +2,8 @@ package magicsweepy.iota.kind;
 
 import magicsweepy.iota.kind.tuple.Pair;
 import magicsweepy.iota.optic.Monoidal;
+import magicsweepy.iota.optic.profunctor.MonoidProfunctor;
+import magicsweepy.iota.optic.profunctor.Procompose;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 
@@ -37,14 +39,14 @@ public interface Functoid<A, B> extends Function<A, B>, Kind2<Functoid.Mu, A, B>
     @Override
     B apply(A a);
 
-    // TODO Other Pro-functor Supported.
     enum Instance implements Kind<Instance.Mu, Functoid.Mu>,
-                             Monoidal<Functoid.Mu, Instance.Mu>
+                             Monoidal<Functoid.Mu, Instance.Mu>,
+                             MonoidProfunctor<Mu, Instance.Mu>
     {
 
         INSTANCE;
 
-        public static final class Mu implements Monoidal.Mu {}
+        public static final class Mu implements Monoidal.Mu, MonoidProfunctor.Mu {}
 
         @Override
         public <A, B, C, D> Functoid<Kind2<Functoid.Mu, A, B>, Kind2<Functoid.Mu, C, D>> dimap(final Function<C, A> g,
@@ -64,6 +66,23 @@ public interface Functoid<A, B> extends Function<A, B>, Kind2<Functoid.Mu, A, B>
         public Kind2<Functoid.Mu, Void, Void> empty()
         {
             return create(Function.identity());
+        }
+
+        @Override
+        public <A, B> Kind2<Functoid.Mu, A, B> zero(Kind2<Functoid.Mu, A, B> f)
+        {
+            return f;
+        }
+
+        @Override
+        public <A, B> Kind2<Functoid.Mu, A, B> plus(Kind2<Procompose.Mu<Functoid.Mu, Functoid.Mu>, A, B> input)
+        {
+            return cap(Procompose.unbox(input));
+        }
+
+        private <A, B, C> Kind2<Functoid.Mu, A, B> cap(final Procompose<Functoid.Mu, Functoid.Mu, A, B, C> cmp)
+        {
+            return create(Functoid.unbox(cmp.second()).compose(Functoid.unbox(cmp.first().get())));
         }
 
     }
