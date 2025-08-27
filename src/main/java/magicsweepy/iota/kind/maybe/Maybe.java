@@ -186,8 +186,8 @@ public abstract class Maybe<T> implements Kind<Maybe.Mu, T>
                                                                         Kind<Maybe.Mu, A> input)
         {
             Maybe<A> maybe = Maybe.unbox(input);
-            if (maybe instanceof Just<A> just)
-                return ap.map(Just::new, f.apply(just.value));
+            if (maybe instanceof Just<?> just)
+                return ap.map(Just::new, f.apply(Unchecks.cast(just.value)));
             else
                 return ap.point(nothing());
         }
