@@ -2,6 +2,8 @@ package magicsweepy.iota.kind;
 
 import magicsweepy.iota.kind.tuple.Pair;
 import magicsweepy.iota.optic.Monoidal;
+import magicsweepy.iota.optic.Wander;
+import magicsweepy.iota.optic.profunctor.Mapping;
 import magicsweepy.iota.optic.profunctor.MonoidProfunctor;
 import magicsweepy.iota.optic.profunctor.Procompose;
 import org.jspecify.annotations.NonNull;
@@ -12,6 +14,12 @@ import java.util.function.Supplier;
 
 /**
  * The prototypes of the {@link Function}, used to represent it to type level.
+ * <p>
+ * A {@link Functoid} is a wrapper around a standard Java {@link Function} that allowing it to be used in a higher
+ * kinded way. It can be seen as a {@code Profunctor} that is also a {@code Functor} in its second argument.
+ *
+ * @param <A> The input type of the function.
+ * @param <B> The output type of the function.
  */
 @NullMarked
 public interface Functoid<A, B> extends Function<A, B>, Kind2<Functoid.Mu, A, B>, Kind<Functoid.MuF<A>, B>
@@ -41,12 +49,13 @@ public interface Functoid<A, B> extends Function<A, B>, Kind2<Functoid.Mu, A, B>
 
     enum Instance implements Kind<Instance.Mu, Functoid.Mu>,
                              Monoidal<Functoid.Mu, Instance.Mu>,
-                             MonoidProfunctor<Mu, Instance.Mu>
+                             MonoidProfunctor<Mu, Instance.Mu>,
+                             Mapping<Mu, Instance.Mu>
     {
 
         INSTANCE;
 
-        public static final class Mu implements Monoidal.Mu, MonoidProfunctor.Mu {}
+        public static final class Mu implements Monoidal.Mu, MonoidProfunctor.Mu, Mapping.Mu {}
 
         @Override
         public <A, B, C, D> Functoid<Kind2<Functoid.Mu, A, B>, Kind2<Functoid.Mu, C, D>> dimap(final Function<C, A> g,
@@ -83,6 +92,21 @@ public interface Functoid<A, B> extends Function<A, B>, Kind2<Functoid.Mu, A, B>
         private <A, B, C> Kind2<Functoid.Mu, A, B> cap(final Procompose<Functoid.Mu, Functoid.Mu, A, B, C> cmp)
         {
             return create(Functoid.unbox(cmp.second()).compose(Functoid.unbox(cmp.first().get())));
+        }
+
+        @Override
+        public <A, B, F extends Ob> Kind2<Functoid.Mu, Kind<F, A>, Kind<F, B>> mapping(Functor<F, ?> functor,
+                                                                                       Kind2<Functoid.Mu, A, B> input)
+        {
+            return create(fa -> functor.map(Functoid.unbox(input), fa));
+        }
+
+        @Override
+        public <S, T, A, B> Kind2<Functoid.Mu, S, T> wander(Wander<S, T, A, B> wander,
+                                                            Kind2<Functoid.Mu, A, B> input)
+        {
+            return create(s -> IdF.get(wander.wander(IdF.Instance.INSTANCE,
+                    a -> IdF.create(Functoid.unbox(input).apply(a))).apply(s)));
         }
 
     }

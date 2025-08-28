@@ -1,5 +1,6 @@
 package magicsweepy.iota.stream;
 
+import lombok.experimental.UtilityClass;
 import magicsweepy.iota.kind.list.ListOps;
 import magicsweepy.iota.util.Checks;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +15,8 @@ import java.util.function.Supplier;
  * Implementations of {@link Gatherer} that provide useful intermediate operations, such as
  * windowing functions, folding functions, transforming elements concurrently, e.t.c.
  */
-public final class Gatherers
+@UtilityClass
+public class Gatherers
 {
 
     /**
@@ -43,7 +45,7 @@ public final class Gatherers
      *           type or serializability of the produced lists.
      */
     @SuppressWarnings("unchecked")
-    public static <TR> Gatherer<TR, ?, List<TR>> windowFixed(@Range(from = 1, to = Integer.MAX_VALUE) int windowSize)
+    public <TR> Gatherer<TR, ?, List<TR>> windowFixed(@Range(from = 1, to = Integer.MAX_VALUE) int windowSize)
     {
         class FixedWindow
         {
@@ -119,7 +121,7 @@ public final class Gatherers
      * @throws IllegalArgumentException When {@code windowSize} is less than <tt>1</tt>.
      */
     @SuppressWarnings("unchecked")
-    public static <TR> Gatherer<TR, ?, List<TR>> windowSliding(@Range(from = 1, to = Integer.MAX_VALUE) int windowSize)
+    public <TR> Gatherer<TR, ?, List<TR>> windowSliding(@Range(from = 1, to = Integer.MAX_VALUE) int windowSize)
     {
         class SlidingWindow
         {
@@ -190,8 +192,8 @@ public final class Gatherers
      *
      * @see java.util.stream.Stream#reduce(Object, BinaryOperator)
      */
-    public static <T, R> Gatherer<T, ?, R> fold(@NotNull Supplier<R> initial,
-                                                         @NotNull BiFunction<? super R, ? super T, ? extends R> folder)
+    public <T, R> Gatherer<T, ?, R> fold(@NotNull Supplier<R> initial,
+                                         @NotNull BiFunction<? super R, ? super T, ? extends R> folder)
     {
         Checks.notnulls(initial, folder);
 
@@ -230,8 +232,8 @@ public final class Gatherers
      *
      * @throws NullPointerException If any of the parameters are {@code null}.
      */
-    public static <T, R> Gatherer<T, ?, R> scan(@NotNull Supplier<R> initial,
-                                                         @NotNull BiFunction<? super R, ? super T, ? extends R> scanner)
+    public <T, R> Gatherer<T, ?, R> scan(@NotNull Supplier<R> initial,
+                                         @NotNull BiFunction<? super R, ? super T, ? extends R> scanner)
     {
         Checks.notnulls(initial, scanner);
 

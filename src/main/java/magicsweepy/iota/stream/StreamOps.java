@@ -1,5 +1,6 @@
 package magicsweepy.iota.stream;
 
+import lombok.experimental.UtilityClass;
 import magicsweepy.iota.optic.Affine;
 import magicsweepy.iota.optic.Getter;
 import magicsweepy.iota.optic.Lens;
@@ -27,7 +28,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public final class StreamOps
+@UtilityClass
+public class StreamOps
 {
 
     /**
@@ -53,8 +55,8 @@ public final class StreamOps
      * @param <A> The type of the state of the returned initializer.
      * @param <R> The type of results for the gatherer.
      */
-    public static <T, A, R> Stream<R> gatherer(@NonNull Stream<T> source,
-                                                        @NonNull Gatherer<? super T, A, R> gatherer)
+    public <T, A, R> Stream<R> gatherer(@NonNull Stream<T> source,
+                                        @NonNull Gatherer<? super T, A, R> gatherer)
     {
         Checks.notnulls(source, gatherer);
 
@@ -82,8 +84,8 @@ public final class StreamOps
      * @param <K>        The type of keys in the map.
      * @param <V>        The type of values in the map.
      */
-    public static <K, V> List<K> sortedByKey(@NonNull Map<K, V> map,
-                                             @NonNull Comparator<? super V> comparator)
+    public <K, V> List<K> sortedByKey(@NonNull Map<K, V> map,
+                                      @NonNull Comparator<? super V> comparator)
     {
         Checks.notnulls(map, comparator);
         return map.entrySet().stream()
@@ -106,8 +108,8 @@ public final class StreamOps
      * @param <V>          The type of values in the map.
      * @param <U>          The type of the comparable key extracted from the value.
      */
-    public static <K, V, U extends Comparable<? super U>> List<K> sortedByKey(@NonNull Map<K, V> map,
-                                                                              @NonNull Function<? super V, ? extends U> keyExtractor)
+    public <K, V, U extends Comparable<? super U>> List<K> sortedByKey(@NonNull Map<K, V> map,
+                                                                       @NonNull Function<? super V, ? extends U> keyExtractor)
     {
         Checks.notnulls(map, keyExtractor);
         return sortedByKey(map, Comparator.comparing(keyExtractor));
@@ -123,8 +125,8 @@ public final class StreamOps
      * @param <K>        The type of keys in the map.
      * @param <V>        The type of values in the map.
      */
-    public static <K, V> List<V> sortedByValue(@NonNull Map<K, V> map,
-                                               @NonNull Comparator<? super K> comparator)
+    public <K, V> List<V> sortedByValue(@NonNull Map<K, V> map,
+                                        @NonNull Comparator<? super K> comparator)
     {
         Checks.notnulls(map, comparator);
         return map.entrySet().stream()
@@ -145,8 +147,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the accessed element.
      */
-    public static <S, A> Stream<A> map(@NonNull Stream<S> stream,
-                                       @NonNull Getter<S, ?, A, ?> getter)
+    public <S, A> Stream<A> map(@NonNull Stream<S> stream,
+                                @NonNull Getter<S, ?, A, ?> getter)
     {
         Checks.notnulls(stream, getter);
         return stream.map(getter::get);
@@ -166,9 +168,9 @@ public final class StreamOps
      * @param <A>     The type of the accessed element.
      * @param <B>     The type of the updated element.
      */
-    public static <S, A, B> Stream<S> updateEach(@NonNull Stream<S> stream,
-                                                 @NonNull Lens<S, S, A, B> lens,
-                                                 @NonNull Function<A, B> updater)
+    public <S, A, B> Stream<S> updateEach(@NonNull Stream<S> stream,
+                                          @NonNull Lens<S, S, A, B> lens,
+                                          @NonNull Function<A, B> updater)
     {
         Checks.notnulls(stream, lens, updater);
         return stream.map(s -> lens.update(updater.apply(lens.view(s)), s));
@@ -189,9 +191,9 @@ public final class StreamOps
      * @param <A>     The type of the matched element.
      * @param <B>     The type of the updated element.
      */
-    public static <S, A, B> Stream<S> updateMatch(@NonNull Stream<S> stream,
-                                                  @NonNull Prism<S, S, A, B> prism,
-                                                  @NonNull Function<A, B> updater)
+    public <S, A, B> Stream<S> updateMatch(@NonNull Stream<S> stream,
+                                           @NonNull Prism<S, S, A, B> prism,
+                                           @NonNull Function<A, B> updater)
     {
         Checks.notnulls(stream, prism, updater);
         return stream.map(s -> prism.match(s)
@@ -215,9 +217,9 @@ public final class StreamOps
      * @param <A>     The type of the matched element.
      * @param <B>     The type of the updated element.
      */
-    public static <S, A, B> Stream<S> updateMatch(@NonNull Stream<S> stream,
-                                                  @NonNull Affine<S, S, A, B> affine,
-                                                  @NonNull Function<A, B> updater)
+    public <S, A, B> Stream<S> updateMatch(@NonNull Stream<S> stream,
+                                           @NonNull Affine<S, S, A, B> affine,
+                                           @NonNull Function<A, B> updater)
     {
         Checks.notnulls(stream, affine, updater);
         return stream.map(s -> affine.preview(s)
@@ -235,8 +237,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the key used for grouping.
      */
-    public static <S, A> Map<A, List<S>> groupBy(@NonNull Stream<S> stream,
-                                                 @NonNull Lens<S, ?, A, ?> lens)
+    public <S, A> Map<A, List<S>> groupBy(@NonNull Stream<S> stream,
+                                          @NonNull Lens<S, ?, A, ?> lens)
     {
         Checks.notnulls(stream, lens);
         return stream.collect(Collectors.groupingBy(lens::view));
@@ -255,9 +257,9 @@ public final class StreamOps
      * @param <S>       The type of elements in the stream.
      * @param <A>       The type of the key used for partitioning.
      */
-    public static <S, A> Map<Boolean, List<S>> partitionBy(@NonNull Stream<S> stream,
-                                                           @NonNull Lens<S, ?, A, ?> lens,
-                                                           @NonNull Predicate<A> predicate)
+    public <S, A> Map<Boolean, List<S>> partitionBy(@NonNull Stream<S> stream,
+                                                    @NonNull Lens<S, ?, A, ?> lens,
+                                                    @NonNull Predicate<A> predicate)
     {
         Checks.notnulls(stream, lens, predicate);
         return stream.collect(Collectors.partitioningBy(s -> predicate.test(lens.view(s))));
@@ -277,8 +279,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the accessed element, which must implement {@link Comparable}.
      */
-    public static <S, A extends Comparable<A>> Optional<A> maxBy(@NonNull Stream<S> stream,
-                                                                          @NonNull Lens<S, ?, A, ?> lens)
+    public <S, A extends Comparable<A>> Optional<A> maxBy(@NonNull Stream<S> stream,
+                                                          @NonNull Lens<S, ?, A, ?> lens)
     {
         Checks.notnulls(stream, lens);
         return stream.map(lens::view).max(Comparator.naturalOrder());
@@ -298,8 +300,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the accessed element, which must implement {@link Comparable}.
      */
-    public static <S, A extends Comparable<A>> Optional<A> minBy(@NonNull Stream<S> stream,
-                                                                          @NonNull Lens<S, ?, A, ?> lens)
+    public <S, A extends Comparable<A>> Optional<A> minBy(@NonNull Stream<S> stream,
+                                                          @NonNull Lens<S, ?, A, ?> lens)
     {
         Checks.notnulls(stream, lens);
         return stream.map(lens::view).min(Comparator.naturalOrder());
@@ -313,8 +315,8 @@ public final class StreamOps
      * @return       An {@link OptionalInt} describing the sum of integer values, or an empty {@code OptionalInt}
      *               if the stream is empty.
      */
-    public static <S> OptionalInt sumBy(@NonNull Stream<S> stream,
-                                        @NonNull Lens<S, ?, Integer, ?> lens)
+    public <S> OptionalInt sumBy(@NonNull Stream<S> stream,
+                                 @NonNull Lens<S, ?, Integer, ?> lens)
     {
         Checks.notnulls(stream, lens);
         return stream.map(lens::view).mapToInt(Integer::intValue).reduce(Integer::sum);
@@ -328,8 +330,8 @@ public final class StreamOps
      * @return       An {@link OptionalDouble} describing the average of integer values, or an empty {@code OptionalDouble}
      *               if the stream is empty.
      */
-    public static <S> OptionalDouble averageIntBy(@NonNull Stream<S> stream,
-                                                  @NonNull Lens<S, ?, Integer, ?> lens)
+    public <S> OptionalDouble averageIntBy(@NonNull Stream<S> stream,
+                                           @NonNull Lens<S, ?, Integer, ?> lens)
     {
         return stream.map(lens::view).mapToInt(Integer::intValue).average();
     }
@@ -350,8 +352,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the accessed element, which must implement {@link Comparable}.
      */
-    public static <S, A extends Comparable<A>> Stream<S> sortedBy(@NonNull Stream<S> stream,
-                                                                  @NonNull Optic<?, S, ?, A, ?> optic)
+    public <S, A extends Comparable<A>> Stream<S> sortedBy(@NonNull Stream<S> stream,
+                                                           @NonNull Optic<?, S, ?, A, ?> optic)
     {
         Checks.notnulls(stream, optic);
         if (optic instanceof Getter)
@@ -386,8 +388,8 @@ public final class StreamOps
      * @param <S>    The type of elements in the stream.
      * @param <A>    The type of the accessed element used for equality check.
      */
-    public static <S, A> Stream<S> distinctBy(@NonNull Stream<S> stream,
-                                              @NonNull Optic<?, S, ?, A, ?> optic)
+    public <S, A> Stream<S> distinctBy(@NonNull Stream<S> stream,
+                                       @NonNull Optic<?, S, ?, A, ?> optic)
     {
         Checks.notnulls(stream, optic);
         Set<A> seen = new HashSet<>();

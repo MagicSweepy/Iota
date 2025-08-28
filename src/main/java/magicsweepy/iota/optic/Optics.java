@@ -6,9 +6,11 @@ import magicsweepy.iota.kind.Functoid;
 import magicsweepy.iota.kind.Kind;
 import magicsweepy.iota.kind.Ob;
 import magicsweepy.iota.kind.either.Either;
+import magicsweepy.iota.kind.tuple.Pair;
 import magicsweepy.iota.util.Unchecks;
 import org.jspecify.annotations.NonNull;
 
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -170,6 +172,114 @@ public class Optics
     public static <A, B> ListTraversal<A, B> listTraversal()
     {
         return Unchecks.cast(ListTraversal.INSTANCE);
+    }
+
+    public static <R, A, B> Forget<R, A, B> forget(final Function<A, R> function)
+    {
+        return function::apply;
+    }
+
+    public static <R, A, B> ForgetOpt<R, A, B> forgetOpt(final Function<A, Optional<R>> function)
+    {
+        return function::apply;
+    }
+
+    public static <R, A, B> ForgetE<R, A, B> forgetE(final Function<A, Either<B, R>> function)
+    {
+        return function::apply;
+    }
+
+    public static <R, A, B> ReForget<R, A, B> reForget(final Function<R, B> function)
+    {
+        return function::apply;
+    }
+
+    public static <R, A, B> ReForgetEP<R, A, B> reForgetEP(final String name,
+                                                           final Function<Either<A, Pair<A, R>>, B> function)
+    {
+        return new ReForgetEP<>()
+        {
+
+            @NonNull
+            @Override
+            public B run(@NonNull final Either<A, Pair<A, R>> e)
+            {
+                return function.apply(e);
+            }
+
+            @Override
+            public String toString()
+            {
+                return "ReForgetEP_" + name;
+            }
+
+        };
+    }
+
+    public static <R, A, B> ReForgetE<R, A, B> reForgetE(final String name,
+                                                         final Function<Either<A, R>, B> function)
+    {
+        return new ReForgetE<>()
+        {
+
+            @NonNull
+            @Override
+            public B run(@NonNull final Either<A, R> t)
+            {
+                return function.apply(t);
+            }
+
+            @Override
+            public String toString()
+            {
+                return "ReForgetE_" + name;
+            }
+
+        };
+    }
+
+    public static <R, A, B> ReForgetP<R, A, B> reForgetP(final String name,
+                                                         final BiFunction<A, R, B> function)
+    {
+        return new ReForgetP<>()
+        {
+
+            @NonNull
+            @Override
+            public B run(@NonNull final A a, @NonNull final R r)
+            {
+                return function.apply(a, r);
+            }
+
+            @Override
+            public String toString()
+            {
+                return "ReForgetP_" + name;
+            }
+
+        };
+    }
+
+    public static <R, A, B> ReForgetC<R, A, B> reForgetC(final String name,
+                                                                  final Either<Function<R, B>, BiFunction<A, R, B>> either)
+    {
+        return new ReForgetC<>()
+        {
+
+            @NonNull
+            @Override
+            public Either<Function<R, B>, BiFunction<A, R, B>> construct()
+            {
+                return either;
+            }
+
+            @Override
+            public String toString()
+            {
+                return "ReForgetC_" + name;
+            }
+
+        };
     }
 
     // endregion
