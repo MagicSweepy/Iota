@@ -1,7 +1,7 @@
 package magicsweepy.iota.stream;
 
 import magicsweepy.iota.util.Checks;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -128,7 +128,7 @@ public interface Gatherer<T, A, R>
      * @implSpec The implementation in this interface returns a new {@code Gatherer} which
      *           is semantically equivalent to the combination of this and that gatherer.
      */
-    default <RR> Gatherer<T, ?, RR> andThen(@NotNull Gatherer<? super R, ?, ? extends RR> that)
+    default <RR> Gatherer<T, ?, RR> andThen(@NonNull Gatherer<? super R, ?, ? extends RR> that)
     {
         Checks.notnull(that);
         return GathererComposite.of(this, that);
@@ -266,13 +266,13 @@ public interface Gatherer<T, A, R>
      *
      * @throws NullPointerException If any argument is {@code null}.
      */
-    static <T, A, R> Gatherer<T, A, R> of(@NotNull Supplier<A> initializer,
-                                                   @NotNull Integrator<A, T, R> integrator,
-                                                   @NotNull BinaryOperator<A> combiner,
-                                                   @NotNull BiConsumer<A, Downstream<? super R>> finisher)
+    static <T, A, R> Gatherer<T, A, R> of(@NonNull Supplier<A> initializer,
+                                                   @NonNull Integrator<A, T, R> integrator,
+                                                   @NonNull BinaryOperator<A> combiner,
+                                                   @NonNull BiConsumer<A, Downstream<? super R>> finisher)
     {
-        return new GathererImpl<>(Checks.notnull(initializer), Checks.notnull(integrator),
-                Checks.notnull(combiner), Checks.notnull(finisher));
+        Checks.notnull(initializer, integrator, combiner, finisher);
+        return new GathererImpl<>(initializer, integrator, combiner, finisher);
     }
 
     /**

@@ -58,7 +58,7 @@ public class StreamOps
     public <T, A, R> Stream<R> gatherer(@NonNull Stream<T> source,
                                         @NonNull Gatherer<? super T, A, R> gatherer)
     {
-        Checks.notnulls(source, gatherer);
+        Checks.notnull(source, gatherer);
 
         Supplier<A> initializer = gatherer.initializer();
         Gatherer.Integrator<A, ? super T, R> integrator = gatherer.integrator();
@@ -87,7 +87,7 @@ public class StreamOps
     public <K, V> List<K> sortedByKey(@NonNull Map<K, V> map,
                                       @NonNull Comparator<? super V> comparator)
     {
-        Checks.notnulls(map, comparator);
+        Checks.notnull(map, comparator);
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(comparator))
                 .map(Map.Entry::getKey)
@@ -111,7 +111,7 @@ public class StreamOps
     public <K, V, U extends Comparable<? super U>> List<K> sortedByKey(@NonNull Map<K, V> map,
                                                                        @NonNull Function<? super V, ? extends U> keyExtractor)
     {
-        Checks.notnulls(map, keyExtractor);
+        Checks.notnull(map, keyExtractor);
         return sortedByKey(map, Comparator.comparing(keyExtractor));
     }
 
@@ -128,7 +128,7 @@ public class StreamOps
     public <K, V> List<V> sortedByValue(@NonNull Map<K, V> map,
                                         @NonNull Comparator<? super K> comparator)
     {
-        Checks.notnulls(map, comparator);
+        Checks.notnull(map, comparator);
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey(comparator))
                 .map(Map.Entry::getValue)
@@ -150,7 +150,7 @@ public class StreamOps
     public <S, A> Stream<A> map(@NonNull Stream<S> stream,
                                 @NonNull Getter<S, ?, A, ?> getter)
     {
-        Checks.notnulls(stream, getter);
+        Checks.notnull(stream, getter);
         return stream.map(getter::get);
     }
 
@@ -172,7 +172,7 @@ public class StreamOps
                                           @NonNull Lens<S, S, A, B> lens,
                                           @NonNull Function<A, B> updater)
     {
-        Checks.notnulls(stream, lens, updater);
+        Checks.notnull(stream, lens, updater);
         return stream.map(s -> lens.update(updater.apply(lens.view(s)), s));
     }
 
@@ -195,7 +195,7 @@ public class StreamOps
                                            @NonNull Prism<S, S, A, B> prism,
                                            @NonNull Function<A, B> updater)
     {
-        Checks.notnulls(stream, prism, updater);
+        Checks.notnull(stream, prism, updater);
         return stream.map(s -> prism.match(s)
                 .map(left -> left, right -> prism.build(updater.apply(right))));
     }
@@ -221,7 +221,7 @@ public class StreamOps
                                            @NonNull Affine<S, S, A, B> affine,
                                            @NonNull Function<A, B> updater)
     {
-        Checks.notnulls(stream, affine, updater);
+        Checks.notnull(stream, affine, updater);
         return stream.map(s -> affine.preview(s)
                 .map(left -> left, right -> affine.set(updater.apply(right), s)));
     }
@@ -240,7 +240,7 @@ public class StreamOps
     public <S, A> Map<A, List<S>> groupBy(@NonNull Stream<S> stream,
                                           @NonNull Lens<S, ?, A, ?> lens)
     {
-        Checks.notnulls(stream, lens);
+        Checks.notnull(stream, lens);
         return stream.collect(Collectors.groupingBy(lens::view));
     }
 
@@ -261,7 +261,7 @@ public class StreamOps
                                                     @NonNull Lens<S, ?, A, ?> lens,
                                                     @NonNull Predicate<A> predicate)
     {
-        Checks.notnulls(stream, lens, predicate);
+        Checks.notnull(stream, lens, predicate);
         return stream.collect(Collectors.partitioningBy(s -> predicate.test(lens.view(s))));
     }
 
@@ -282,7 +282,7 @@ public class StreamOps
     public <S, A extends Comparable<A>> Optional<A> maxBy(@NonNull Stream<S> stream,
                                                           @NonNull Lens<S, ?, A, ?> lens)
     {
-        Checks.notnulls(stream, lens);
+        Checks.notnull(stream, lens);
         return stream.map(lens::view).max(Comparator.naturalOrder());
     }
 
@@ -303,7 +303,7 @@ public class StreamOps
     public <S, A extends Comparable<A>> Optional<A> minBy(@NonNull Stream<S> stream,
                                                           @NonNull Lens<S, ?, A, ?> lens)
     {
-        Checks.notnulls(stream, lens);
+        Checks.notnull(stream, lens);
         return stream.map(lens::view).min(Comparator.naturalOrder());
     }
 
@@ -318,7 +318,7 @@ public class StreamOps
     public <S> OptionalInt sumBy(@NonNull Stream<S> stream,
                                  @NonNull Lens<S, ?, Integer, ?> lens)
     {
-        Checks.notnulls(stream, lens);
+        Checks.notnull(stream, lens);
         return stream.map(lens::view).mapToInt(Integer::intValue).reduce(Integer::sum);
     }
 
@@ -355,7 +355,7 @@ public class StreamOps
     public <S, A extends Comparable<A>> Stream<S> sortedBy(@NonNull Stream<S> stream,
                                                            @NonNull Optic<?, S, ?, A, ?> optic)
     {
-        Checks.notnulls(stream, optic);
+        Checks.notnull(stream, optic);
         if (optic instanceof Getter)
         {
             Getter<S, ?, A, ?> getter = Unchecks.cast(optic);
@@ -391,7 +391,7 @@ public class StreamOps
     public <S, A> Stream<S> distinctBy(@NonNull Stream<S> stream,
                                        @NonNull Optic<?, S, ?, A, ?> optic)
     {
-        Checks.notnulls(stream, optic);
+        Checks.notnull(stream, optic);
         Set<A> seen = new HashSet<>();
         if (optic instanceof Getter)
         {

@@ -1,14 +1,16 @@
 package magicsweepy.iota.unsafe;
 
+import lombok.experimental.UtilityClass;
 import magicsweepy.iota.IotaMod;
 import org.jetbrains.annotations.UnknownNullability;
 import sun.misc.Unsafe;
 
-/* package */ final class UnsafeExposer
+@UtilityClass
+/* package */ class UnsafeExposer
 {
 
     @UnknownNullability
-    /* package */ static Unsafe getInstance()
+    /* package */ Unsafe getInstance()
     {
         try
         {

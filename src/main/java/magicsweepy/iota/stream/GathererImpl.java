@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import magicsweepy.iota.util.Checks;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -23,17 +23,17 @@ public final class GathererImpl<T, A, R> implements Gatherer<T, A, R>
 {
 
     private final Supplier<A> initializer;
-    private final Gatherer.Integrator<A, T, R> integrator;
+    private final Integrator<A, T, R> integrator;
     private final BinaryOperator<A> combiner;
     private final BiConsumer<A, Downstream<? super R>> finisher;
 
-    /* package */ GathererImpl<T, A, R> of(@NotNull Supplier<A> initializer,
-                                                    @NotNull Gatherer.Integrator<A, T, R> integrator,
-                                                    @NotNull BinaryOperator<A> combiner,
-                                                    @NotNull BiConsumer<A, Downstream<? super R>> finisher)
+    /* package */ GathererImpl<T, A, R> of(@NonNull Supplier<A> initializer,
+                                                    @NonNull Integrator<A, T, R> integrator,
+                                                    @NonNull BinaryOperator<A> combiner,
+                                                    @NonNull BiConsumer<A, Downstream<? super R>> finisher)
     {
-        return new GathererImpl<>(Checks.notnull(initializer), Checks.notnull(integrator),
-                Checks.notnull(combiner), Checks.notnull(finisher));
+        Checks.notnull(initializer, integrator, combiner, finisher);
+        return new GathererImpl<>(initializer, integrator, combiner, finisher);
     }
 
     @Override
@@ -43,7 +43,7 @@ public final class GathererImpl<T, A, R> implements Gatherer<T, A, R>
     }
 
     @Override
-    public Gatherer.Integrator<A, T, R> integrator()
+    public Integrator<A, T, R> integrator()
     {
         return this.integrator;
     }

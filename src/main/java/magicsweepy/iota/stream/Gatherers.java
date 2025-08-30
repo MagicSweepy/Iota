@@ -3,8 +3,8 @@ package magicsweepy.iota.stream;
 import lombok.experimental.UtilityClass;
 import magicsweepy.iota.kind.list.ListOps;
 import magicsweepy.iota.util.Checks;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -192,10 +192,10 @@ public class Gatherers
      *
      * @see java.util.stream.Stream#reduce(Object, BinaryOperator)
      */
-    public <T, R> Gatherer<T, ?, R> fold(@NotNull Supplier<R> initial,
-                                         @NotNull BiFunction<? super R, ? super T, ? extends R> folder)
+    public <T, R> Gatherer<T, ?, R> fold(@NonNull Supplier<R> initial,
+                                         @NonNull BiFunction<? super R, ? super T, ? extends R> folder)
     {
-        Checks.notnulls(initial, folder);
+        Checks.notnull(initial, folder);
 
         class State
         {
@@ -232,10 +232,10 @@ public class Gatherers
      *
      * @throws NullPointerException If any of the parameters are {@code null}.
      */
-    public <T, R> Gatherer<T, ?, R> scan(@NotNull Supplier<R> initial,
-                                         @NotNull BiFunction<? super R, ? super T, ? extends R> scanner)
+    public <T, R> Gatherer<T, ?, R> scan(@NonNull Supplier<R> initial,
+                                         @NonNull BiFunction<? super R, ? super T, ? extends R> scanner)
     {
-        Checks.notnulls(initial, scanner);
+        Checks.notnull(initial, scanner);
 
         class State
         {

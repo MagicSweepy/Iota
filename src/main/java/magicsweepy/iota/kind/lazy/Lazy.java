@@ -26,7 +26,8 @@ public final class Lazy<A> implements Kind<Lazy.@NonNull Mu, A>
 
     private Lazy(@NonNull ThrowableSupplier<? extends A> evaluator)
     {
-        this.evaluator = Checks.notnull(evaluator);
+        Checks.notnull(evaluator);
+        this.evaluator = evaluator;
     }
 
     @NonNull

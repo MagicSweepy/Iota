@@ -7,9 +7,9 @@ public class Unchecks
 {
 
     @SuppressWarnings("unchecked")
-    public <T> T cast(Object o)
+    public <T> T cast(Object object)
     {
-        return (T) o;
+        return (T) object;
     }
 
 }

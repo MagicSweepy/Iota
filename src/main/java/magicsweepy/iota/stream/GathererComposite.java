@@ -1,7 +1,7 @@
 package magicsweepy.iota.stream;
 
 import magicsweepy.iota.util.Checks;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
@@ -14,10 +14,11 @@ public final class GathererComposite<T, A, R, AA, RR> implements Gatherer<T, Obj
     private final Gatherer<? super R, AA, ? extends RR> right;
     private volatile GathererImpl<T, Object, RR> impl;
 
-    public static <T, A, R, AA, RR> GathererComposite<T, A, R, AA, RR> of(@NotNull Gatherer<T, A, ? extends R> left,
-                                                                                   @NotNull Gatherer<? super R, AA, ? extends RR> right)
+    public static <T, A, R, AA, RR> GathererComposite<T, A, R, AA, RR> of(@NonNull Gatherer<T, A, ? extends R> left,
+                                                                                   @NonNull Gatherer<? super R, AA, ? extends RR> right)
     {
-        return new GathererComposite<>(Checks.notnull(left), Checks.notnull(right));
+        Checks.notnull(left, right);
+        return new GathererComposite<>(left, right);
     }
 
     /* package */ GathererComposite(Gatherer<T, A, ? extends R> left,
@@ -50,7 +51,7 @@ public final class GathererComposite<T, A, R, AA, RR> implements Gatherer<T, Obj
     }
 
     @Override
-    public Gatherer.Integrator<Object, T, RR> integrator()
+    public Integrator<Object, T, RR> integrator()
     {
         return impl().integrator();
     }
@@ -67,13 +68,12 @@ public final class GathererComposite<T, A, R, AA, RR> implements Gatherer<T, Obj
         return impl().finisher();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public <RRR> Gatherer<T, ?, RRR> andThen(@NotNull Gatherer<? super RR, ?, ? extends RRR> that)
+    public <RRR> Gatherer<T, ?, RRR> andThen(@NonNull Gatherer<? super RR, ?, ? extends RRR> that)
     {
-        if (that instanceof GathererComposite)
+        if (that instanceof GathererComposite c)
         {
-            @SuppressWarnings("unchecked")
-            GathererComposite<? super RR, ?, Object, ?, ? extends RRR> c = (GathererComposite<? super RR, ?, Object, ?, ? extends RRR>) that;
             return left.andThen(right.andThen(c.left).andThen(c.right));
         }
         else
